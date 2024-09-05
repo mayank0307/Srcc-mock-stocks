@@ -9,7 +9,7 @@ export const getNews =  ()=>async dispatch =>{
          
     
     try{
-        const res = await axios.get('http://localhost:4000/api/news');
+        const res = await axios.get('https://srccmockstocks.onrender.com/api/news');
         dispatch({
             type:GET_NEWS,
             payload:res.data
@@ -34,7 +34,7 @@ export const addNews = ({ topic,text,code2  }) => async dispatch => {
     const body = JSON.stringify({topic, detail,code2 });
     try {
           
-        const res = await axios.post('http://localhost:4000/api/news', body, config);
+        const res = await axios.post('https://srccmockstocks.onrender.com/api/news', body, config);
         dispatch({
             type: ADD_NEWS,
             payload: res.data 
@@ -65,7 +65,7 @@ export const endRound = () => async dispatch => {
      
     try {
           
-        const res = await axios.put('https://shrirammockstock.onrender.com/api/news/round/end');
+        const res = await axios.put('https://srccmockstocks.onrender.com/api/news/round/end');
         dispatch({
             type: ROUND_END,
             payload: res.data 
@@ -95,7 +95,7 @@ export const shortSold = () => async dispatch => {
      
     try {
           
-        const res = await axios.put('https://shrirammockstock.onrender.com/api/news/short-sell');
+        const res = await axios.put('https://srccmockstocks.onrender.com/api/news/short-sell');
         dispatch({
             type: ROUND_END,
             payload: res.data 
@@ -126,7 +126,7 @@ export const endContest = () => async dispatch => {
      
     try {
           
-        const res = await axios.put('https://shrirammockstock.onrender.com/api/news/contest/end');
+        const res = await axios.put('https://srccmockstocks.onrender.com/api/news/contest/end');
         dispatch({
             type: ROUND_END,
             payload: res.data 
@@ -163,7 +163,7 @@ export const deleteAllNews = () => async dispatch => {
     };
     
     try {
-        const res = await axios.delete('http://localhost:4000/api/news/delete-all', config);
+        const res = await axios.delete('https://srccmockstocks.onrender.com/api/news/delete-all', config);
         dispatch({
             type: DELETE_ALL_NEWS,
             payload: res.data
