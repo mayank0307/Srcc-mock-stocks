@@ -8,6 +8,7 @@ import { getStocks } from "../../actions/stocks";
 import { shortSold } from "../../actions/news";
 import { deleteAllNews } from "../../actions/news";
 import { deleteAllStocks } from "../../actions/stocks";
+import { deleteAllResults } from "../../actions/results";
 import {Link} from "react-router-dom";
 import axios from "axios"
 const AddStockForm = ({
@@ -19,6 +20,7 @@ const AddStockForm = ({
   endRound,shortSold,
   deleteAllNews,
   deleteAllStocks,
+  deleteAllResults,
 
 }) => {
   useEffect(() => {
@@ -52,6 +54,9 @@ const AddStockForm = ({
   };
   const senddeleteAllStocks = async () => {
     await deleteAllStocks();
+  };
+  const senddeleteAllResults = async () => {
+    await deleteAllResults();
   };
   const handleContentChange = (event) => {
     setText(event.target.value);
@@ -290,6 +295,13 @@ const AddStockForm = ({
            Delete All Stocks
           </button>
         </a>
+
+        <a href="#top">
+          {" "}
+          <button className="btn btn-danger" onClick={senddeleteAllResults}>
+           Delete All Results
+          </button>
+        </a>
       </div>
     </div>
   );
@@ -305,6 +317,7 @@ AddStockForm.propTypes = {
   endContest: PropTypes.func.isRequired,
   deleteAllNews: PropTypes.func.isRequired,
   deleteAllStocks: PropTypes.func.isRequired,
+  deleteAllResults: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -319,4 +332,5 @@ export default connect(mapStateToProps, {
   endContest,shortSold,
   deleteAllNews,
   deleteAllStocks,
+  deleteAllResults,
 })(AddStockForm);

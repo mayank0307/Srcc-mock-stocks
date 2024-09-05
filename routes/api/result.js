@@ -43,4 +43,17 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.delete("/delete-all", async (req, res) => {
+    try {
+        debugger;
+        await Portfolio.deleteMany({});
+  
+        // Respond with a success message
+        res.json({ message: "Results data has been deleted." });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+  });
+
 module.exports = router;
