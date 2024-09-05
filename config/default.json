@@ -1,5 +1,6 @@
 {
    
-    "jwtSecret":"mysecrettoken"
+    "jwtSecret":"mysecrettoken",
+    "mongoUri": "mongodb+srv://adminUser:Admin@123@mockstocks.jgvnv.mongodb.net/"
    
 }
