@@ -17,9 +17,10 @@ router.get("/me",[auth], async (req, res) => {
       ["email", "avatar", "balance"]
     );
     if (!portfolio) {
-      return res.status(400).json({
-        errors: [{ msg: "There is no portfolio exist for this user " }],
-      });
+      if (!portfolio) {
+        portfolio = new Portfolio({ DmStockuser: req.user.id });
+        await portfolio.save(); // Save the new portfolio
+      }
     }
     res.json(portfolio);
   } catch (err) { 
