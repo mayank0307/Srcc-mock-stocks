@@ -257,6 +257,18 @@ router.put("/contest/end", async (req, res) => {
       res.status(500).send("Server error");
     }
   });
-  
+
+  router.delete("/delete-all", async (req, res) => {
+    try {
+        // Delete all news articles from the News collection
+        await News.deleteMany({});
+
+        // Respond with a success message
+        res.json({ message: "All news articles have been deleted." });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
   
 module.exports = router;

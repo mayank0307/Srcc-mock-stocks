@@ -1,5 +1,5 @@
  
-import {ADD_NEWS, GET_NEWS,NEWS_ERROR , END_ERROR, ROUND_END } from '../actions/types';
+import {ADD_NEWS, GET_NEWS,NEWS_ERROR , END_ERROR, ROUND_END, DELETE_ALL_NEWS } from '../actions/types';
 
 const initialState=  {
      
@@ -21,7 +21,14 @@ export default function(state=initialState,action){
                 loading:false
             }
 
-     
+        case DELETE_ALL_NEWS:
+        
+        return {
+            ...state,
+            delete:true,
+                
+            loading:false
+        }
          
          
         case NEWS_ERROR:

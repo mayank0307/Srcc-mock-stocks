@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_NEWS, NEWS_ERROR ,ADD_NEWS, END_ERROR, ROUND_END } from './types';
+import {GET_NEWS, NEWS_ERROR ,ADD_NEWS, END_ERROR, ROUND_END, DELETE_ALL_NEWS } from './types';
 import { setAlert } from "./alert";
 import setAuthToken from '../utils/setAuthToken';
 //load a user
@@ -9,7 +9,7 @@ export const getNews =  ()=>async dispatch =>{
          
     
     try{
-        const res = await axios.get('https://shrirammockstock.onrender.com/api/news');
+        const res = await axios.get('http://localhost:4000/api/news');
         dispatch({
             type:GET_NEWS,
             payload:res.data
@@ -34,7 +34,7 @@ export const addNews = ({ topic,text,code2  }) => async dispatch => {
     const body = JSON.stringify({topic, detail,code2 });
     try {
           
-        const res = await axios.post('https://shrirammockstock.onrender.com/api/news', body, config);
+        const res = await axios.post('http://localhost:4000/api/news', body, config);
         dispatch({
             type: ADD_NEWS,
             payload: res.data 
@@ -145,6 +145,32 @@ export const endContest = () => async dispatch => {
             payload:error.message
         })}
     }
-}  
+}
 
+// Delete all news
+export const deleteAllNews = () => async dispatch => {
+    // Display a confirmation dialog to the user
+    const confirmation = window.confirm('Are you sure you want to delete all stocks? This action cannot be undone.');
 
+    // If user does not confirm, return early and do nothing
+    if (!confirmation) {
+        return;
+    }
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    
+    try {
+        const res = await axios.delete('http://localhost:4000/api/news/delete-all', config);
+        dispatch({
+            type: DELETE_ALL_NEWS,
+            payload: res.data
+        });
+        dispatch(setAlert("All news data deleted", 'success'));
+    } catch (error) {
+        console.error(error);
+        dispatch(setAlert('Failed to delete all news', 'error'));
+    }
+};

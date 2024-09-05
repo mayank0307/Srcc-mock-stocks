@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_STOCK, STOCK_ERROR ,USER_LOADED,AUTH_ERROR, BUY_ERROR,SELL_ERROR } from './types';
+import {GET_STOCK, STOCK_ERROR ,USER_LOADED,AUTH_ERROR, BUY_ERROR,SELL_ERROR, DELETE_ALL_STOCKS} from './types';
 import { setAlert } from "./alert";
 import setAuthToken from '../utils/setAuthToken';
 import { getPortfolio } from './userprofile';
@@ -10,7 +10,7 @@ export const getStocks =  ()=>async dispatch =>{
          
     
     try{
-        const res = await axios.get('https://shrirammockstock.onrender.com/api/stocks');
+        const res = await axios.get('http://localhost:4000/api/stocks');
         dispatch({
             type:GET_STOCK,
             payload:res.data
@@ -32,7 +32,7 @@ export const addStock = ({ name, price,code }) => async dispatch => {
     const body = JSON.stringify({ name,price,code });
     try {
           
-        const res = await axios.post('https://shrirammockstock.onrender.com/api/stocks', body, config);
+        const res = await axios.post('http://localhost:4000/api/stocks', body, config);
         dispatch({
             type:GET_STOCK ,
             payload: res.data 
@@ -159,4 +159,31 @@ export const shortStock =  ({stock,balance,amount})=>async dispatch =>{
         })
     }
 }
+
+export const deleteAllStocks = () => async dispatch => {
+        // Display a confirmation dialog to the user
+    const confirmation = window.confirm('Are you sure you want to delete all stocks? This action cannot be undone.');
+
+    // If user does not confirm, return early and do nothing
+    if (!confirmation) {
+        return;
+    }
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    
+    try {
+        const res = await axios.delete('http://localhost:4000/api/stocks/delete-all', config);
+        dispatch({
+            type: DELETE_ALL_STOCKS,
+            payload: res.data
+        });
+        dispatch(setAlert("All stocks data deleted", 'success'));
+    } catch (error) {
+        console.error(error);
+        dispatch(setAlert('Failed to delete all stocks', 'error'));
+    }
+};
 

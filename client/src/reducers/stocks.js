@@ -1,4 +1,4 @@
-import {GET_STOCK, STOCK_ERROR } from '../actions/types';
+import {GET_STOCK, STOCK_ERROR, DELETE_ALL_STOCKS } from '../actions/types';
 
 const initialState=  {
     
@@ -21,8 +21,16 @@ export default function(state=initialState,action){
                 stocks:payload,
                 loading:false
             }
-        
-         
+
+        case DELETE_ALL_STOCKS:
+
+        return {
+            ...state,
+            delete:true,
+                
+            loading:false
+        }
+
       
         case STOCK_ERROR:
             
