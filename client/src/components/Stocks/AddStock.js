@@ -55,6 +55,7 @@ const AddStockForm = ({
   const senddeleteAllStocks = async () => {
     await deleteAllStocks();
   };
+  //delete results
   const senddeleteAllResults = async () => {
     await deleteAllResults();
   };
