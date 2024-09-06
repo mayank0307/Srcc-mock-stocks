@@ -10,24 +10,27 @@ const auth = require("../../middleware/auth");
  
 const User = require("../../models/User");
 const Portfolio = require("../../models/Portfolio");
-router.get("/me",[auth], async (req, res) => {
+
+router.get("/me", [auth], async (req, res) => {
   try {
-    const portfolio = await Portfolio.findOne({ DmStockuser: req.user.id }).populate(
+    let portfolio = await Portfolio.findOne({ DmStockuser: req.user.id }).populate(
       "DmStockuser",
       ["email", "avatar", "balance"]
     );
+
+    // If no portfolio exists, create a new one for the user
     if (!portfolio) {
-      if (!portfolio) {
-        portfolio = new Portfolio({ DmStockuser: req.user.id });
-        await portfolio.save(); // Save the new portfolio
-      }
+      portfolio = new Portfolio({ DmStockuser: req.user.id });
+      await portfolio.save(); // Save the new portfolio
     }
+
     res.json(portfolio);
-  } catch (err) { 
+  } catch (err) {
     console.log(err.message);
-    res.status(500).send('server error');
+    res.status(500).send("Server error");
   }
 });
+
   
 
  
